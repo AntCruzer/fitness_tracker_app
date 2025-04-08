@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../screens/home_screen.dart';
 import '../screens/choose_workout_screen.dart';
 import '../screens/current_workout_screen.dart';
-// import '../screens/workout_history_screen.dart' as history;
+
 import '../screens/settings_screen.dart' as settings;
 
 import '../widgets/app_nav_bar.dart';

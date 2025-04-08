@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../services/db_service.dart';
 import '../models/user.dart';
-import '../providers/theme_provider.dart'; // ✅ Add this
+import '../providers/theme_provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -33,10 +33,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     try {
       await DBService().insertUser(user);
-      Hive.box('authBox').put('loggedInEmail', email); // ✅ Save user login for context
+      Hive.box('authBox').put('loggedInEmail', email);
 
       if (!mounted) return;
-      Provider.of<ThemeProvider>(context, listen: false).reloadThemeForNewUser(); // ✅ Reflect dark mode for user
+      Provider.of<ThemeProvider>(context, listen: false).reloadThemeForNewUser();
 
       if (!mounted) return;
       showDialog(

@@ -1,48 +1,4 @@
-// // models/workout_session.dart
 
-// class WorkoutSession {
-//   final int? id;
-//   final String userEmail; // ✅ NEW
-//   final String type;
-//   final List<String> exercises;
-//   final List<bool> completed;
-//   final DateTime timestamp;
-
-//   WorkoutSession({
-//     this.id,
-//     required this.userEmail,
-//     required this.type,
-//     required this.exercises,
-//     required this.completed,
-//     required this.timestamp,
-//   });
-
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'id': id,
-//       'userEmail': userEmail, // ✅ NEW
-//       'type': type,
-//       'exercises': exercises.join('|'),
-//       'completed': completed.map((e) => e ? '1' : '0').join(''),
-//       'timestamp': timestamp.toIso8601String(),
-//     };
-//   }
-
-//   factory WorkoutSession.fromMap(Map<String, dynamic> map) {
-//     return WorkoutSession(
-//       id: map['id'],
-//       userEmail: map['userEmail'], // ✅ NEW
-//       type: map['type'],
-//       exercises: map['exercises'].toString().split('|'),
-//       completed: map['completed'].toString().split('').map((e) => e == '1').toList(),
-//       timestamp: DateTime.parse(map['timestamp']),
-//     );
-//   }
-// }
-
-
-
-// models/workout_session.dart
 
 class WorkoutSession {
   final int? id;
