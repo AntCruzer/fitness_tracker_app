@@ -1,97 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:fl_chart/fl_chart.dart';
-
-// import '../providers/workout_provider.dart';
-// import '../widgets/tab_controller_provider.dart';
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final provider = context.watch<WorkoutProvider>();
-//     final workout = provider.currentWorkout;
-//     final typeCounts = provider.getWorkoutTypeCounts(completedOnly: true);
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         automaticallyImplyLeading: false,
-//         title: const Text("Dashboard"),
-//         actions: [
-//           IconButton(
-//             icon: const Icon(Icons.settings),
-//             onPressed: () {
-//               TabControllerProvider.of(context).setTab(3);
-//             },
-//           ),
-//         ],
-//       ),
-//       body: ListView(
-//         padding: const EdgeInsets.all(16),
-//         children: [
-//           if (workout != null)
-//             Card(
-//               elevation: 2,
-//               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-//               child: Padding(
-//                 padding: const EdgeInsets.all(16),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text("Current Workout", style: Theme.of(context).textTheme.titleLarge),
-//                     const SizedBox(height: 8),
-//                     Text(workout.type, style: Theme.of(context).textTheme.titleMedium),
-//                     const SizedBox(height: 4),
-//                     Text("Completion: ${provider.getCompletionPercentage().toStringAsFixed(1)}%"),
-//                   ],
-//                 ),
-//               ),
-//             )
-//           else
-//             const Text("No active workout. Start one to begin tracking!"),
-//           const SizedBox(height: 24),
-//           ElevatedButton(
-//             onPressed: () {
-//               TabControllerProvider.of(context).setTab(1);
-//             },
-//             child: const Text("Begin a new workout"),
-//           ),
-//           const SizedBox(height: 32),
-//           const Text("📊 Completed Workouts", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-//           const SizedBox(height: 12),
-//           if (typeCounts.isEmpty)
-//             const Text("No completed workout data yet.")
-//           else
-//             Card(
-//               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-//               child: SizedBox(
-//                 height: 200,
-//                 child: PieChart(
-//                   PieChartData(
-//                     sectionsSpace: 2,
-//                     centerSpaceRadius: 30,
-//                     sections: typeCounts.entries.map((entry) {
-//                       return PieChartSectionData(
-//                         title: "${entry.key} (${entry.value})",
-//                         value: entry.value.toDouble(),
-//                         radius: 60,
-//                         titleStyle: const TextStyle(fontSize: 12),
-//                       );
-//                     }).toList(),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
-
 // IMPORTS FLUTTER MATERIAL PACKAGE FOR UI COMPONENTS
 import 'package:flutter/material.dart';
 
@@ -157,6 +63,14 @@ class HomeScreen extends StatelessWidget {
                     Text(workout.type, style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 4),
                     Text("Completion: ${provider.getCompletionPercentage().toStringAsFixed(1)}%"),
+                    const SizedBox(height: 8),
+                    LinearProgressIndicator(
+                      value: provider.getCompletionPercentage() / 100,
+                      minHeight: 8,
+                      backgroundColor: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  
                   ],
                 ),
               ),
@@ -178,7 +92,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 32),
 
           // TITLE FOR COMPLETED WORKOUT CHART SECTION
-          const Text("📊 Completed Workouts", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text("Completed Workouts", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
 
           // IF NO DATA, DISPLAY EMPTY STATE

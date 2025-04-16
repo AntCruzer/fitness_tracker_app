@@ -10,9 +10,9 @@ class TabControllerProvider extends InheritedWidget {
 
   // CONSTRUCTOR TO INITIALIZE THE PROVIDER AND PASS CHILD WIDGET
   const TabControllerProvider({
-    super.key,             // OPTIONAL KEY FOR THE WIDGET TREE
-    required this.setTab,  // FUNCTION REQUIRED TO CONTROL TABS
-    required super.child,  // REQUIRED CHILD WIDGET TO BE WRAPPED
+    super.key,                                // OPTIONAL KEY FOR THE WIDGET TREE
+    required this.setTab,                     // FUNCTION REQUIRED TO CONTROL TABS
+    required super.child,                     // REQUIRED CHILD WIDGET TO BE WRAPPED
   });
 
   // STATIC METHOD TO ACCESS THIS PROVIDER FROM ANY DESCENDANT WIDGET IN THE TREE

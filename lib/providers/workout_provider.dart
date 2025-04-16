@@ -99,23 +99,14 @@ class WorkoutProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // MARKS CURRENT WORKOUT COMPLETE IF ALL EXERCISES ARE DONE
-  // Future<void> completeCurrentWorkout() async {
-  //   if (_currentSession == null) return;
-  //   if (_currentSession!.completed.every((e) => e)) {
-  //     await WorkoutDBService().updateSession(_currentSession!);                 // SAVES FINAL STATE
-  //     await loadWorkoutHistory();                                               // RELOADS HISTORY
-  //     notifyListeners();                                                        // NOTIFIES UI
-  //   }
-  // }
   Future<void> completeCurrentWorkout() async {
-  if (_currentSession == null) return;
-  if (_currentSession!.completed.every((e) => e)) {
-    await WorkoutDBService().updateSession(_currentSession!);
-    _currentSession = null;
-    await loadWorkoutHistory();
-    notifyListeners();
+    if (_currentSession == null) return;
+    if (_currentSession!.completed.every((e) => e)) {
+      await WorkoutDBService().updateSession(_currentSession!);
+      _currentSession = null;
+      await loadWorkoutHistory();
+      notifyListeners();
+    }
   }
-}
 
 }
