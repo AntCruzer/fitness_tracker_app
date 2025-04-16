@@ -1,60 +1,124 @@
+// import 'package:sqflite/sqflite.dart';
+// import 'package:path/path.dart';
+// import '../models/user.dart';
+
+// class DBService {
+//   static Database? _db;
+
+//   Future<Database> get db async {
+//     if (_db != null) return _db!;
+//     _db = await _initDb();
+//     return _db!;
+//   }
+
+//   Future<Database> _initDb() async {
+//     final path = join(await getDatabasesPath(), 'users.db');
+//     return openDatabase(
+//       path,
+//       version: 1,
+//       onCreate: (db, version) {
+//         db.execute('''
+//           CREATE TABLE users (
+//             id INTEGER PRIMARY KEY AUTOINCREMENT,
+//             username TEXT,
+//             email TEXT UNIQUE,
+//             password TEXT
+//           )
+//         ''');
+//       },
+//     );
+//   }
+
+//   Future<int> insertUser(User user) async {
+//     final dbClient = await db;
+//     return await dbClient.insert('users', user.toMap());
+//   }
+
+//   Future<User?> getUserByEmail(String email) async {
+//     final dbClient = await db;
+//     final result = await dbClient.query(
+//       'users',
+//       where: 'email = ?',
+//       whereArgs: [email],
+//     );
+//     return result.isNotEmpty ? User.fromMap(result.first) : null;
+//   }
+
+//   Future<int> deleteUserByEmail(String email) async {
+//     final dbClient = await db;
+//     return await dbClient.delete(
+//       'users',
+//       where: 'email = ?',
+//       whereArgs: [email],
+//     );
+//   }
+// }
+
+// IMPORTS SQLITE PACKAGE FOR DATABASE OPERATIONS
 import 'package:sqflite/sqflite.dart';
+
+// IMPORTS PATH PACKAGE FOR FILE PATH CONSTRUCTION
 import 'package:path/path.dart';
+
+// IMPORTS THE USER MODEL
 import '../models/user.dart';
 
+// DEFINES THE DATABASE SERVICE CLASS FOR USER MANAGEMENT
 class DBService {
-  static final DBService _instance = DBService._internal();
-  factory DBService() => _instance;
-  DBService._internal();
-
+  // HOLDS THE SQLITE DATABASE INSTANCE
   static Database? _db;
 
-  Future<Database> get database async {
+  // ASYNC GETTER FOR THE DATABASE INSTANCE
+  Future<Database> get db async {
     if (_db != null) return _db!;
-    _db = await _initDB();
+    _db = await _initDb();
     return _db!;
   }
 
-  Future<Database> _initDB() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'flutterfit.db');
-
-    return await openDatabase(path, version: 1, onCreate: (db, version) {
-      return db.execute('''
-        CREATE TABLE users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          username TEXT NOT NULL,
-          email TEXT NOT NULL UNIQUE,
-          password TEXT NOT NULL
-        )
-      ''');
-    });
+  // INITIALIZES THE SQLITE DATABASE AND CREATES THE USER TABLE IF NEEDED
+  Future<Database> _initDb() async {
+    final path = join(await getDatabasesPath(), 'users.db');
+    return openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) {
+        // CREATES THE USERS TABLE WITH ID, USERNAME, EMAIL, AND PASSWORD
+        db.execute('''
+          CREATE TABLE users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            email TEXT UNIQUE,
+            password TEXT
+          )
+        ''');
+      },
+    );
   }
 
+  // INSERTS A NEW USER RECORD INTO THE USERS TABLE
   Future<int> insertUser(User user) async {
-    final db = await database;
-    return await db.insert('users', user.toMap(), conflictAlgorithm: ConflictAlgorithm.fail);
+    final dbClient = await db;
+    return await dbClient.insert('users', user.toMap());
   }
 
+  // RETRIEVES A USER BY EMAIL FROM THE DATABASE
   Future<User?> getUserByEmail(String email) async {
-    final db = await database;
-    final result = await db.query(
+    final dbClient = await db;
+    final result = await dbClient.query(
       'users',
       where: 'email = ?',
       whereArgs: [email],
     );
-
-    if (result.isNotEmpty) {
-      return User.fromMap(result.first);
-    }
-    return null;
+    return result.isNotEmpty ? User.fromMap(result.first) : null;
   }
 
-  Future<void> deleteUserByEmail(String email) async {
-  final db = await database;
-  await db.delete('users', where: 'email = ?', whereArgs: [email]);
+  // DELETES A USER RECORD BASED ON THE GIVEN EMAIL
+  Future<int> deleteUserByEmail(String email) async {
+    final dbClient = await db;
+    return await dbClient.delete(
+      'users',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
   }
-
-
-  
 }

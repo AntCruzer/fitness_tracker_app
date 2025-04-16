@@ -1,32 +1,50 @@
-workout.dart
-- Defines the Workout data model, including attributes and 
-methods for managing exercises and tracking completion.
+**`workout.dart`**  
+- Defines the `Workout` data model with exercise lists and logic to calculate completion percentage.
 
-workout_provider.dart
-- State manager that handles workout selection, exercise 
-completion, and state updates for UI changes.
+**`workout_session.dart`**  
+- Data model for logged workout sessions, including type, exercises, completion state, and timestamp.
 
-choose_workout_screen.dart
-- Workout selection screen, allows users to select a 
-workout type, which updates the current workout state.
+**`user.dart`**  
+- Represents a registered user, including credentials for authentication and profile metadata.
 
-current_workout_screen.dart
-- Displays a list of exercises from the selected workout, 
-allowing users to toggle completion status.
+**`workout_provider.dart`**  
+- Manages workout selection, session progress, exercise completion, and workout history.
 
-home_screen.dart
-- Dashboard that dynamically displays workout completion 
-percentage and prompts users to begin a workout.
+**`theme_provider.dart`**  
+- Manages app-wide theme settings (light/dark mode) per user, with persistence using Hive.
 
-nav_bar.dart
-- Defines the bottom navigation bar, allowing users to 
-switch between screens.
+**`choose_workout_screen.dart`**  
+- Workout selection screen where users choose from predefined workout types with exercise lists.
 
-main.dart
-- Entry point of the app, sets up the ChangeNotifierProvider 
-for state management and initializes the navigation structure.
+**`current_workout_screen.dart`**  
+- Displays the active workout session with a checklist interface and real-time progress tracking.
 
-pubspec.yaml
-- Project configuration file that defines dependencies, 
-environment settings, and metadata such as the app’s name, 
-version, and asset management.
+**`home_screen.dart`**  
+- Dashboard showing the current workout summary, a visual progress indicator, and a pie chart of completed workouts.
+
+**`workout_history_screen.dart`**  
+- Displays all past workout sessions with timestamps, progress bars, and swipe-to-delete functionality.
+
+**`settings_screen.dart`**  
+- Settings interface for toggling theme, managing notifications, logging out, clearing history, and deleting accounts.
+
+**`main_shell.dart`**  
+- Primary UI container managing the tab-based navigation between core screens using `IndexedStack`.
+
+**`app_nav_bar.dart`**  
+- Bottom navigation bar widget used for navigating between Home, Workouts, Current Session, and Settings.
+
+**`tab_controller_provider.dart`**  
+- Provides shared tab control logic across the app, allowing other widgets to change tabs programmatically.
+
+**`main.dart`**  
+- App entry point; sets up Hive, initializes state management via `MultiProvider`, and handles initial routing.
+
+**`db_service.dart`**  
+- SQLite-based service for user data operations (insert, retrieve, delete).
+
+**`workout_db_service.dart`**  
+- SQLite-based service for creating, updating, and retrieving workout session data.
+
+**`pubspec.yaml`**  
+- Project configuration file defining Flutter dependencies (`provider`, `sqflite`, `hive`, `fl_chart`, etc.), assets, and environment settings.
